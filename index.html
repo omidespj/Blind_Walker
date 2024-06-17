@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel = "stylesheet" href = "styles/style.css" />
+    <title>Bilnd Walker</title>
 </head>
 <body>
+    <main>
+        <div id = "intro">
+            <img src = "./images/blind4.png" alt = "logo" class = "logo" />
+            <button id = "start-game"> Let's Go! </button>
+
+        </div>
+        <div id = "container">
+            <div>
+                <p>Score <span id = "score" >0</span></p>
+                <p>Heart <span id = "heart" >3</span></p>
+            </div>
+            <div id = "screen"></div>
+
+
+        </div>
+        <div id = "end">
+            <img src = "./images/blind4.png" alt = "logo" class = "logo" />
+            <h1> Game Over</h1>
+            <button id = "retry"> Retry! </button>
+
+        </div>
+    </main>
+    <script type = "text/javascript" src = "js/game.js"></script>
+    <script type = "text/javascript" src = "js/player.js"></script>
+    <script type = "text/javascript" src = "js/script.js"></script>
+    <script type = "text/javascript" src = "js/vehicles.js"></script>
     
 </body>
 </html>
