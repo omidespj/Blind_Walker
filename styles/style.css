@@ -10,19 +10,25 @@ body {
 
 #container {
     display: flex;
-    width: 100vw;
-    padding: 20px 0px;
     justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh; /* Use the full viewport height */
+    padding: 0;
+    overflow: hidden; /* Hide overflow to prevent scrollbars */
 }
 
 #screen {
     display: none;
     align-content: center;
-    padding: 20px 0px;
     overflow: hidden;
     position: relative;
     background-image: url(../images/road2.png);
-    background-size: cover;
+    background-size: contain; /* Ensure the whole image fits within the div */
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
 }
 
 #end{
