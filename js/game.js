@@ -5,6 +5,8 @@ class Game {
         this.endScreen = document.querySelector('#end')
         this.width = 1000
         //this.height = 200
+
+        this.player
     }
 
 
@@ -15,5 +17,7 @@ class Game {
         this.startScreen.style.display = 'none'
         this.gameScreen.style.display = 'block'
         this.endScreen.style.display = 'none'
+
+        this.player = new Player(this.gameScreen)
     }
 }
