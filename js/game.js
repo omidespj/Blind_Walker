@@ -19,5 +19,11 @@ class Game {
         this.endScreen.style.display = 'none'
 
         this.player = new Player(this.gameScreen)
+
+        const intervalId = setInterval(() => {
+
+            this.player.move()
+
+        }, 1000/60)
     }
 }

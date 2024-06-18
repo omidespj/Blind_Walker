@@ -15,4 +15,15 @@ window.onload = function () {
     rtry.addEventListener('click', function() {
         startGame();
     })
+
+    document.addEventListener('keydown', event => {
+        if (event.code === 'KeyA' || event.code === 'ArrowLeft') {
+          // Move to the left
+          game.player.directionX = -1
+        }
+        if (event.code === 'KeyD' || event.code === 'ArrowRight') {
+          // Move to the right
+          game.player.directionX = 1
+        }
+      })
 }
