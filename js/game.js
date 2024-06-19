@@ -7,6 +7,7 @@ class Game {
         //this.height = 200
 
         this.player
+        this.vehicle
     }
 
 
@@ -19,10 +20,12 @@ class Game {
         this.endScreen.style.display = 'none'
 
         this.player = new Player(this.gameScreen)
+        this.vehicle = new Vehicle(this.gameScreen)
 
         const intervalId = setInterval(() => {
 
             this.player.move()
+            this.vehicle.move()
 
         }, 1000/60)
     }
