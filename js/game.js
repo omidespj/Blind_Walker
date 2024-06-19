@@ -8,6 +8,7 @@ class Game {
 
         this.player
         this.vehicle
+        this.count = 0
     }
 
 
@@ -23,9 +24,15 @@ class Game {
         this.vehicle = new Vehicle(this.gameScreen)
 
         const intervalId = setInterval(() => {
+            this.count++
 
             this.player.move()
             this.vehicle.move()
+
+            if (this.count%200 === 0) {
+                this.vehicle = new Vehicle(this.gameScreen)
+                this.vehicle.move()
+            }
 
         }, 1000/60)
     }
