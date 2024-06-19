@@ -9,6 +9,7 @@ class Game {
         this.player
         this.vehicle
         this.count = 0
+        this.heart = 3
     }
 
 
@@ -32,6 +33,10 @@ class Game {
             if (this.count%200 === 0) {
                 this.vehicle = new Vehicle(this.gameScreen)
                 this.vehicle.move()
+            }
+            if(this.player.accident(this.vehicle)){
+                this.vehicle.element.remove()
+                this.heart--
             }
 
         }, 1000/60)

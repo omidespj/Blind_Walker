@@ -48,4 +48,24 @@ class Player {
           }
 
     }
+
+    accident(vehicle) {
+        const playerRect = this.element.getBoundingClientRect()
+        const vehicleRect = vehicle.element.getBoundingClientRect()
+
+        if (
+        playerRect.left < vehicleRect.right &&
+        playerRect.right > vehicleRect.left &&
+        playerRect.top < vehicleRect.bottom &&
+        playerRect.bottom > vehicleRect.top
+        ) {
+        console.log('Crash!')
+
+        return true
+        } else {
+        return false
+        }
+
+
+    }
 }
