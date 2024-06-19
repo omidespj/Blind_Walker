@@ -25,5 +25,29 @@ window.onload = function () {
           // Move to the right
           game.player.directionX = 1
         }
+        if (event.code === 'KeyW' || event.code === 'ArrowUp') {
+          // Move to the left
+          game.player.directionY = -1
+        }
+        if (event.code === 'KeyS' || event.code === 'ArrowDown') {
+          // Move to the right
+          game.player.directionY = 1
+        }
+      })
+
+      document.addEventListener('keyup', event => {
+        if (event.code === 'KeyA' ||
+          event.code === 'ArrowLeft' ||
+          event.code === 'KeyD' ||
+          event.code === 'ArrowRight'
+          ) {
+            game.player.directionX = 0
+          }
+        if (event.code === 'KeyW' ||
+          event.code === 'ArrowUp' ||
+          event.code === 'KeyS' ||
+          event.code === 'ArrowDown') {
+            game.player.directionY = 0
+          }
       })
 }
