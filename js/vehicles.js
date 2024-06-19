@@ -1,11 +1,11 @@
 class Vehicle {
     constructor(gameScreen) {
         this.gameScreen = gameScreen
-        this.width = 200
+        this.width = gameScreen.clientWidth * 0.1
         this.element = document.createElement('img')
         this.element.left = 0
         this.left = 0
-        this.top = Math.random() * (this.gameScreen.clientHeight - this.width)
+        this.top = (this.gameScreen.clientHeight - this.width -75)
         this.speed = 5
 
         this.element.src = 'images/car.png'
