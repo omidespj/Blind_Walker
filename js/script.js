@@ -9,6 +9,9 @@ window.onload = function () {
       const difficulty = difficultySelect.value; 
       game = new Game(difficulty);
       game.start();
+      container.style.display = 'flex';  // Show the game container
+      intro.style.display = 'none';  // Hide the intro screen
+
   }
 
   startBtn.addEventListener('click', function() {

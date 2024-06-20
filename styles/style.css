@@ -1,21 +1,68 @@
-body {
-    padding: 0;
-    text-align: center;
+html, body {
     margin: 0;
-}
-
-#intro {
-    padding: 20px 0px;
-}
-
-#container {
+    padding: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh; /* Use the full viewport height */
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+main {
+    margin: 0;
     padding: 0;
-    overflow: hidden; /* Hide overflow to prevent scrollbars */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#intro, #end {
+    position: relative;
+    width: 1000px; /* Set the width */
+    height: 600px; /* Set the height */
+    background-image: url('../images/logo.png'); /* Background image */
+    background-size: cover; /* Cover the entire div */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for better visibility */
+    background-color: white; /* Optional: Add a background color for better contrast */
+    border: 2px solid red; /* Debugging: Add border to visualize the div */
+}
+
+#intro {
+    display: flex;
+}
+
+#end {
+    display: none; /* Hide the end section initially */
+}
+
+#intro img, #end img {
+    display: none; /* Hide the separate logo image as it's now a background */
+}
+
+#intro select, #intro button, #end button {
+    margin: 10px 0;
+}
+
+#container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
 }
 
 #screen {
@@ -23,20 +70,24 @@ body {
     align-content: center;
     overflow: hidden;
     position: relative;
-    background-image: url(../images/road.png);
-    background-size: contain; /* Ensure the whole image fits within the div */
+    background-image: url('../images/road.png');
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100%; /* Full width of the container */
-    height: 100%; /* Full height of the container */
+    width: 100%;
+    height: 100%;
 }
 
-#end{
-    display: none;
+#end h1 {
+    margin-top: 20px;
 }
 
-.logo {
-    width: 350px;
+#end div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 button {
@@ -46,5 +97,4 @@ button {
     border: 0;
     box-shadow: 0;
     border-radius: 15px;
-    margin-bottom: 20px;
 }

@@ -2,6 +2,7 @@ class Game {
     constructor(difficulty) {
         this.startScreen = document.querySelector('#intro');
         this.gameScreen = document.querySelector('#screen');
+        this.container = document.querySelector('#container');
         this.endScreen = document.querySelector('#end');
         this.width = 580;
         this.height = 387;
@@ -44,6 +45,7 @@ class Game {
 
         this.startScreen.style.display = 'none';
         this.gameScreen.style.display = 'block';
+        this.container.style.display = 'block';
         this.endScreen.style.display = 'none';
 
         this.player = new Player(this.gameScreen);
