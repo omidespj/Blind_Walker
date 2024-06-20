@@ -15,34 +15,33 @@ class Vehicle {
         const top3 = (this.gameScreen.clientHeight*0.51)
         const top4 = (this.gameScreen.clientHeight - this.width -edge)
 
-        // Array of image paths
+        
         const images = ['images/car.png', 'images/bus.png'];
-        // Randomly select an image
+
         const selectedImage = images[Math.floor(Math.random() * images.length)];
 
-        // Set sizes based on the selected image
+
         if (selectedImage === 'images/car.png') {
-            this.width = gameScreen.clientWidth * 0.09; // Car width is 7.5% of the screen width
-            this.height = gameScreen.clientHeight * 0.09; // Car height is 7.5% of the screen height
+            this.width = gameScreen.clientWidth * 0.09; 
+            this.height = gameScreen.clientHeight * 0.09; 
         } else if (selectedImage === 'images/bus.png') {
-            this.width = gameScreen.clientWidth * 0.18; // Bus width is 15% of the screen width
-            this.height = gameScreen.clientHeight * 0.18; // Bus height is 15% of the screen height
+            this.width = gameScreen.clientWidth * 0.18; 
+            this.height = gameScreen.clientHeight * 0.18; 
         }
 
 
-        // Randomly choose between the two ranges
         const range = Math.random() < 0.5 ? [top1, top2] : [top3, top4];
         this.top = Math.random() * (range[1] - range[0]) + range[0];
 
         if (this.top >= top3 && this.top <= top4) {
-            // Vehicles between top3 and top4
-            this.left = -this.width; // Start from the left
-            this.speed = speed; // Positive speed
+
+            this.left = -this.width; 
+            this.speed = speed; 
         } else {
-            // Vehicles between top1 and top2
-            this.left = gameScreen.clientWidth; // Start from the right
-            this.speed = -speed; // Negative speed
-            this.element.style.transform = 'rotate(180deg)'; // Rotate 180 degrees
+            
+            this.left = gameScreen.clientWidth; 
+            this.speed = -speed; 
+            this.element.style.transform = 'rotate(180deg)'; 
         }
 
         this.element.src = selectedImage

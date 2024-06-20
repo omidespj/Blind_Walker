@@ -15,8 +15,8 @@ class Game {
         this.startTime = null;
         this.elapsedTime = null;
         this.score = 0;
-        this.maxScore = 10000; // Adjust as needed
-        this.timerDuration = 100; // Set the timer duration in seconds
+        this.maxScore = 10000; 
+        this.timerDuration = 100; 
 
         this.difficulty = difficulty;
         this.vehicleRate = this.getVehicleRate(difficulty);
@@ -25,18 +25,18 @@ class Game {
     getVehicleRate(difficulty) {
         switch (difficulty) {
             case 'easy':
-                return 40; // 20% rate for easy
+                return 40; 
             case 'intermediate':
-                return 30; // 30% rate for intermediate
+                return 30; 
             case 'hard':
-                return 20; // 40% rate for hard
+                return 20; 
             default:
-                return 40; // Default to easy if no valid difficulty provided
+                return 40; 
         }
     }
 
     start() {
-        // Reset game state
+        
         this.resetGame();
 
         this.gameScreen.style.width = `${this.width}px`;
@@ -48,7 +48,7 @@ class Game {
 
         this.player = new Player(this.gameScreen);
 
-        this.startTime = performance.now(); // Start the timer
+        this.startTime = performance.now(); 
 
         this.intervalId = setInterval(() => {
             this.count++;
@@ -76,17 +76,13 @@ class Game {
 
             document.getElementById('heart').innerText = this.heart;
 
-            // Update the timer display
+            
             this.updateTimer();
 
-            // Check if player reached the top
             this.checkPlayerPosition();
 
-            if (this.heart <= 0 || this.timerDuration <= 0) {
-                clearInterval(this.intervalId);
-                this.gameScreen.style.display = 'none';
-                this.endScreen.style.display = 'block';
-                document.getElementById('final-score').innerText = Math.floor(this.score);
+            if (this.heart <= 0) {
+                this.endGame();
             }
         }, 1000 / 60);
     }
@@ -110,7 +106,7 @@ class Game {
         this.startTime = null;
         this.elapsedTime = null;
         this.score = 0;
-        this.timerDuration = 100; // Reset the timer duration
+        this.timerDuration = 100; 
     }
 
     createVehicle() {
@@ -136,36 +132,37 @@ class Game {
     }
 
     updateTimer() {
-        // Calculate elapsed time in milliseconds
         this.elapsedTime = performance.now() - this.startTime;
 
-        // Convert elapsed time to seconds and calculate remaining time
         const elapsedTimeInSeconds = Math.floor(this.elapsedTime / 1000);
         const remainingTime = Math.max(0, this.timerDuration - elapsedTimeInSeconds);
 
-        // Update timer display
         document.getElementById('timer').innerText = remainingTime;
+
+        if (remainingTime <= 0) {
+            this.endGame();
+        }
     }
 
     checkPlayerPosition() {
-        if (this.player.top <= 0) {
-            // Calculate elapsed time in milliseconds
+        if (this.player.top <= 40) {
             this.elapsedTime = performance.now() - this.startTime;
 
-            // Convert elapsed time to seconds and calculate remaining time
             const elapsedTimeInSeconds = Math.floor(this.elapsedTime / 1000);
             const remainingTime = Math.max(0, this.timerDuration - elapsedTimeInSeconds);
 
-            // Calculate the score based on the remaining time
             this.score = Math.max(0, this.maxScore - (100 - remainingTime) * 100);
 
-            // Update score display
             document.getElementById('score').innerText = Math.floor(this.score);
 
-            // Display final score on the end screen
-            clearInterval(this.intervalId);
-            this.gameScreen.style.display = 'none';
-            this.endScreen.style.display = 'block';
+            this.endGame();
         }
+    }
+
+    endGame() {
+        clearInterval(this.intervalId);
+        this.gameScreen.style.display = 'none';
+        this.endScreen.style.display = 'block';
+        document.getElementById('final-score').innerText = Math.floor(this.score);
     }
 }

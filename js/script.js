@@ -6,7 +6,7 @@ window.onload = function () {
   let game;
 
   function startGame() {
-      const difficulty = difficultySelect.value; // Get selected difficulty
+      const difficulty = difficultySelect.value; 
       game = new Game(difficulty);
       game.start();
   }
