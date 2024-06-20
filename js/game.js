@@ -11,6 +11,12 @@ class Game {
         this.count = 0;
         this.heart = 3;
         this.intervalId = null;
+
+        this.startTime = null;
+        this.elapsedTime = null;
+        this.score = 0;
+        this.maxScore = 10000; // Adjust as needed
+        this.timerDuration = 100; // Set the timer duration in seconds
     }
 
     start() {
@@ -26,13 +32,15 @@ class Game {
 
         this.player = new Player(this.gameScreen);
 
+        this.startTime = performance.now(); // Start the timer
+
         this.intervalId = setInterval(() => {
             this.count++;
 
             this.player.move();
             this.vehicles.forEach(vehicle => vehicle.move());
 
-            if (this.count % 50 === 0) { // Decrease interval to increase vehicle population
+            if (this.count % 50 === 0) {
                 this.createVehicle();
             }
 
@@ -41,53 +49,58 @@ class Game {
                     vehicle.element.remove();
                     this.heart--;
                     this.player.resetPosition();
-                    return false; // Remove the vehicle that caused the accident
+                    return false;
                 }
-                // Remove vehicle if it moves off-screen
                 if (vehicle.left > this.gameScreen.clientWidth || vehicle.left < -vehicle.width) {
                     vehicle.element.remove();
                     return false;
                 }
-                return true; // Keep the vehicle
+                return true;
             });
 
             document.getElementById('heart').innerText = this.heart;
 
-            if (this.heart <= 0) {
+            // Update the timer display
+            this.updateTimer();
+
+            // Check if player reached the top
+            this.checkPlayerPosition();
+
+            if (this.heart <= 0 || this.timerDuration <= 0) {
                 clearInterval(this.intervalId);
                 this.gameScreen.style.display = 'none';
                 this.endScreen.style.display = 'block';
+                document.getElementById('final-score').innerText = Math.floor(this.score);
             }
         }, 1000 / 60);
     }
 
     resetGame() {
-        // Clear existing vehicles
         this.vehicles.forEach(vehicle => vehicle.element.remove());
         this.vehicles = [];
 
-        // Remove all child elements from the game screen
         while (this.gameScreen.firstChild) {
             this.gameScreen.removeChild(this.gameScreen.firstChild);
         }
 
-        // Reset game variables
         this.count = 0;
         this.heart = 3;
 
-        // Clear interval if it exists
         if (this.intervalId) {
             clearInterval(this.intervalId);
             this.intervalId = null;
         }
+
+        this.startTime = null;
+        this.elapsedTime = null;
+        this.score = 0;
+        this.timerDuration = 100; // Reset the timer duration
     }
 
     createVehicle() {
-        // Attempt to create a new vehicle with proper spacing
-        for (let i = 0; i < 5; i++) { // Try up to 5 times
+        for (let i = 0; i < 5; i++) {
             const newVehicle = new Vehicle(this.gameScreen);
 
-            // Check for overlap
             const overlap = this.vehicles.some(vehicle => {
                 return (
                     newVehicle.left < vehicle.left + vehicle.width &&
@@ -101,9 +114,42 @@ class Game {
                 this.vehicles.push(newVehicle);
                 break;
             } else {
-                // Remove the new vehicle element if overlap occurs
                 newVehicle.element.remove();
             }
+        }
+    }
+
+    updateTimer() {
+        // Calculate elapsed time in milliseconds
+        this.elapsedTime = performance.now() - this.startTime;
+
+        // Convert elapsed time to seconds and calculate remaining time
+        const elapsedTimeInSeconds = Math.floor(this.elapsedTime / 1000);
+        const remainingTime = Math.max(0, this.timerDuration - elapsedTimeInSeconds);
+
+        // Update timer display
+        document.getElementById('timer').innerText = remainingTime;
+    }
+
+    checkPlayerPosition() {
+        if (this.player.top <= 0) {
+            // Calculate elapsed time in milliseconds
+            this.elapsedTime = performance.now() - this.startTime;
+
+            // Convert elapsed time to seconds and calculate remaining time
+            const elapsedTimeInSeconds = Math.floor(this.elapsedTime / 1000);
+            const remainingTime = Math.max(0, this.timerDuration - elapsedTimeInSeconds);
+
+            // Calculate the score based on the remaining time
+            this.score = Math.max(0, this.maxScore - (100 - remainingTime) * 100);
+
+            // Update score display
+            document.getElementById('score').innerText = Math.floor(this.score);
+
+            // Display final score on the end screen
+            clearInterval(this.intervalId);
+            this.gameScreen.style.display = 'none';
+            this.endScreen.style.display = 'block';
         }
     }
 }
