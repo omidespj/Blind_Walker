@@ -1,5 +1,5 @@
 class Game {
-    constructor() {
+    constructor(difficulty) {
         this.startScreen = document.querySelector('#intro');
         this.gameScreen = document.querySelector('#screen');
         this.endScreen = document.querySelector('#end');
@@ -17,6 +17,22 @@ class Game {
         this.score = 0;
         this.maxScore = 10000; // Adjust as needed
         this.timerDuration = 100; // Set the timer duration in seconds
+
+        this.difficulty = difficulty;
+        this.vehicleRate = this.getVehicleRate(difficulty);
+    }
+
+    getVehicleRate(difficulty) {
+        switch (difficulty) {
+            case 'easy':
+                return 40; // 20% rate for easy
+            case 'intermediate':
+                return 30; // 30% rate for intermediate
+            case 'hard':
+                return 20; // 40% rate for hard
+            default:
+                return 40; // Default to easy if no valid difficulty provided
+        }
     }
 
     start() {
@@ -40,7 +56,7 @@ class Game {
             this.player.move();
             this.vehicles.forEach(vehicle => vehicle.move());
 
-            if (this.count % 50 === 0) {
+            if (this.count % this.vehicleRate === 0) {
                 this.createVehicle();
             }
 
